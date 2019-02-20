@@ -1,0 +1,49 @@
+<phpunit
+    bootstrap="autoload.php"
+    backupGlobals="true"
+    backupStaticAttributes="false"
+    cacheResult="false"
+    cacheTokens="false"
+    colors="false"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    forceCoversAnnotation="false"
+    printerClass="PHPUnit\TextUI\ResultPrinter"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    stopOnRisky="false"
+    testSuiteLoaderClass="PHPUnit\Runner\StandardTestSuiteLoader"
+    timeoutForSmallTests="1"
+    timeoutForMediumTests="10"
+    timeoutForLargeTests="60"
+    verbose="false"
+>
+  <testsuites>
+    <testsuite name="The project's test suite">
+      <directory suffix="Test.php">./SoftArchive</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">../src</directory>
+    </whitelist>
+  </filter>
+
+  <logging>
+    <log type="coverage-html" target="coverage"/>
+    <log type="coverage-clover" target="logs/clover.xml"/>
+    <log type="coverage-crap4j" target="logs/crap4j.xml"/>
+    <log type="coverage-xml" target="logs/coverage"/>
+    <log type="junit" target="logs/junit.xml"/>
+    <log type="testdox-html" target="testdox/index.html"/>
+    <log type="testdox-text" target="/logs/testdox.txt"/>
+    <log type="coverage-php" target="logs/coverage.serialized"/>
+    <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+  </logging>
+
+</phpunit>

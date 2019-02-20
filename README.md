@@ -1,5 +1,11 @@
 # Laravel - Soft Archive
 
+![PHP from Packagist](https://img.shields.io/packagist/php-v/felipedecampos/laravel-soft-archive.svg)
+![GitHub release](https://img.shields.io/github/release/felipedecampos/laravel-soft-archive.svg)
+![GitHub](https://img.shields.io/github/license/felipedecampos/laravel-soft-archive.svg)
+![GitHub All Releases](https://img.shields.io/github/downloads/felipedecampos/laravel-soft-archive/total.svg?label=Github%20downloads)
+![Packagist](https://img.shields.io/packagist/dt/felipedecampos/laravel-soft-archive.svg?color=brightgreen&label=Packagist%20downloads)
+
 This is a package to extends soft delete to use to archive models.
 
 ## Installation

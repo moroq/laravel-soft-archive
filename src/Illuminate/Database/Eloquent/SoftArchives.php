@@ -2,8 +2,8 @@
 
 namespace Illuminate\Database\Eloquent;
 
-
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 trait SoftArchives
 {
@@ -38,7 +38,10 @@ trait SoftArchives
 
         $time = $this->freshTimestamp();
 
-        $columns = [$this->getArchivedAtColumn() => $this->fromDateTime($time)];
+        $columns = [
+        	$this->getArchivedAtColumn() => $this->fromDateTime($time),
+        	$this->getArchivedByColumn() => Auth::id()
+        ];
 
         $this->{$this->getArchivedAtColumn()} = $time;
 
@@ -60,6 +63,8 @@ trait SoftArchives
      */
     public function archive()
     {
+
+
         // If the restoring event does not return false, we will proceed with this
         // restore operation. Otherwise, we bail out so the developer will stop
         // the restore totally. We will clear the deleted timestamp and save.
@@ -68,6 +73,9 @@ trait SoftArchives
         }
 
         $this->{$this->getArchivedAtColumn()} = Carbon::now();
+        $this->{$this->getArchivedByColumn()} = Auth::id();
+
+        echo Auth::id().' - user_id';
 
         // Once we have saved the model, we will fire the "restored" event so this
         // developer will do anything they need to after a restore operation is
@@ -96,6 +104,7 @@ trait SoftArchives
         }
 
         $this->{$this->getArchivedAtColumn()} = null;
+        $this->{$this->getArchivedByColumn()} = null;
 
         // Once we have saved the model, we will fire the "restored" event so this
         // developer will do anything they need to after a restore operation is
@@ -152,6 +161,16 @@ trait SoftArchives
     }
 
     /**
+     * Get the name of the "deleted by" column.
+     *
+     * @return string
+     */
+    public function getArchivedByColumn()
+    {
+        return defined('static::ARCHIVED_BY') ? static::ARCHIVED_BY : 'archived_by';
+    }
+
+    /**
      * Get the fully qualified "deleted at" column.
      *
      * @return string
@@ -159,5 +178,15 @@ trait SoftArchives
     public function getQualifiedArchivedAtColumn()
     {
         return $this->qualifyColumn($this->getArchivedAtColumn());
+    }
+
+    /**
+     * Get the fully qualified "deleted by" column.
+     *
+     * @return string
+     */
+    public function getQualifiedArchivedByColumn()
+    {
+        return $this->qualifyColumn($this->getArchivedByColumn());
     }
 }
